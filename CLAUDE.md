@@ -85,9 +85,18 @@ confirm which Q3 commitments still stand. Roadmap was last reviewed 30 Jun and P
 2. Release notes say proximity was requested by wide-area responders; Priya says nearby responders went unoffered. The code penalizes far responders, so wide-area responders lose.
 3. Requisition brief says Halloran wants a second approval; his interview says approvals are too slow (11 days, one queue). Brief also calls one approval "the whole ask" then adds four more.
 4. Phone app brief cites Aunt Dot, who only wanted a handler-side alert ("I don't need to do anything about it").
-5. "Phone never goes off" could also be push delivery (4.1 reliability work, 4.2 duplicate-push fix), not only routing.
+5. "Phone never goes off" could also be push delivery, but tickets about duplicate or late push stopped after 4.2, so this is now unlikely.
 6. Briefs vs releases: Bulk Callout (shipped 4.1) and Override Audit Log (shipped 4.0) briefs still read as unbuilt. Roadmap names Priya as owner of Supply and designer-owned items.
 7. Priya says the engineering manager can pull numbers; Ravi owns them. Glossary says Q4 "mutual aid"; roadmap says "shared cover".
+
+### Support tickets (rook-database `support_tickets`, 147 rows, 29 Jun to 7 Sep; `pings` and `callouts` tables also exist)
+- Volume was 5 to 8 a week, then 20, 27, 32, 25 from the week of 10 Aug. My subject-based grouping, approximate:
+  **quiet / phone not going off** 0 before 12 Aug, 32 after (all open); **gone before they could answer** 0 before, 13 after;
+  **filters** 2 before, 14 after (praised, but resets, wrong person's filters on shared computers, no cross-computer sync);
+  notification delivery 5 before, 0 after. Steady background: dark mode (asked from July), small status badges, one alert sound, catalog search, Supply requisitions and failure reports.
+- 30 of the 32 "quiet" tickets are about four responders: Corporal Ashgrove, Farlight, Halfmoon, The Undertow. "Gone too fast" spans 11 responders.
+- Pings table, my query: those four went from ~11 to ~6 pings per week after 12 Aug; the other 12 stayed ~11 to ~12. Missed share rose for everyone (2.5% to 16%; the four: 1.8% to 29%), fitting the 60s wait. This supports the routing hypothesis and undercuts "seasonal".
+- Ticket 3043 (Mr. Ambrose) asks someone to confirm the timing is intended; still open.
 
 ### September handler interviews (secondhand, via the designer; `00-rook/feedback/` is empty)
 - **Aunt Dot / Vesper:** pings vanish before Vesper answers; also quiet stretches. Wants bigger text and a handler alert.
