@@ -116,3 +116,10 @@ Session 1 wrap-up (13 Oct 2026):
 - Still open: Ravi's per-responder ping counts before and after 12 Aug; whether Availability Confidence is still a Q3 commitment; whether the 4.2 weight change was a deliberate decision.
 - Still open: what the wide-area responders who asked for the proximity change actually wanted, since the code works against them.
 - Not yet read: the product-brief claim that Halloran asked for a second approval has no source beyond the brief itself.
+
+Session 2 wrap-up (13 Oct 2026):
+- Pings since 12 Aug: missed share 2.3% to 18.0%, turned-down flat. Vesper, The Undertow, Meteor Mite and Farlight fell from about 12 to 3-5 pings a week and missed 53-64%; the other twelve gained about 26 a week between them, total volume roughly flat, which undercuts "seasonal". Ashgrove and Halfmoon filed many quiet tickets but look like the pack by rate. This replaces the earlier "four" and the far-vs-near theory as the main explanation.
+- My replay of `history.py` over the pings puts those four at 0.84-1.00 on 12 Aug and at the floor by 6 Sep, with misses clustered 12-16 Aug. It is a model, not production scores. A miss is scored like a decline although the glossary says they are recorded separately.
+- Tickets (12 handlers) and interviews (4 handlers, 3 never filed) barely overlap: tickets size problems, interviews find silent groups. Ambrose's incident is in both (ticket 3043). Recount: quiet is 32 tickets all from four handlers, too-fast is 13 across 9 responders (earlier lines said 30 and 11).
+- Working problem statements: (1) the 60s wait expires pings; (2) miss-as-decline with no decay pushes responders out of rotation; amplifier: handlers have no alert or explanation and all 32 quiet tickets are open. Tickets have no reply field and pings have no answer time.
+- Still open: Ravi's answer times, score history and last August baseline; Wen Li or Marcus on whether miss-as-decline was intended; capability tags per responder (only Vantage and Ironvale known). Asks to Ravi, Wen Li, Marcus, Helen, Nadia and Sofia are drafted, not sent.
