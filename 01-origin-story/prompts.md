@@ -24,6 +24,16 @@ prompt library built from your own questions.
 
 ### 1.
 
+Run me through the superheroes that have given feedback
+
 ### 2.
 
+can you provide a breakdown of what was intended to be in 4.2 release based on the roadmap vs what was actually included?
+
 ### 3.
+
+yes. and also provide me with a definition of the Availability Confidence
+
+### 4.
+
+Ok, what contradictions between all the content are you seeing?
