@@ -37,3 +37,16 @@ yes. and also provide me with a definition of the Availability Confidence
 ### 4.
 
 Ok, what contradictions between all the content are you seeing?
+
+
+### 5.
+
+yes please
+
+_Note added by Claude, not typed by you: this answered my offer to add the September handler interviews to CLAUDE.md. What you wanted dug into: the handler feedback about responders losing callouts or going quiet, saved so it carries into the next session._
+
+### 6.
+
+both
+
+_Note added by Claude, not typed by you: this answered my offer to (a) add the contradictions to CLAUDE.md and (b) read the routing code first to check them. What you wanted dug into: which conflicts in the wiki, briefs, handover and interviews matter, and whether the code explains the 4.2 drop in pings taken._
