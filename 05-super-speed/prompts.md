@@ -74,3 +74,8 @@ I would refrain from messaging the hero that they are "back in rotation" because
 ### 15.
 
 Can you update the prototype to have the top section respond/react to the outcome of the callout going to meteor mite? meaning, accepting increases standing, decline decreases standing, and missing decreases, all of which the appropriate amounts? Also have the stats update correctly
+
+
+### 16.
+
+Let's improve the UI a bit and make it look a little more like a real app
