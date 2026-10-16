@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rook Dispatch console — "Gone quiet" prototype</title>
+<style>
+  :root{--navy:#1B2A41;--org:#D9531E;--tint:#EEF2F7;--grey:#4A5568;--line:#D5DCE6;--green:#1F7A4D;--greenbg:#E6F4EC;--amberbg:#FFF2E8;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Calibri,Arial,sans-serif;color:var(--navy);background:#fff;}
+  header{background:var(--navy);color:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center}
+  header b{font-size:18px}
+  header span{font-size:14px;opacity:.85}
+  .proto{background:var(--tint);color:var(--grey);font-size:13px;padding:8px 24px;border-bottom:1px solid var(--line)}
+  main{max-width:1000px;margin:20px auto;padding:0 24px}
+  h2{font-size:18px;margin:0 0 12px}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .card{border:1px solid var(--line);border-radius:10px;padding:16px;background:#fff}
+  .card h3{margin:0;font-size:20px;display:flex;justify-content:space-between;align-items:center}
+  .badge{font-size:12px;font-weight:bold;padding:3px 8px;border-radius:12px;background:var(--greenbg);color:var(--green)}
+  .stat{display:flex;gap:24px;margin:14px 0}
+  .stat div{font-size:13px;color:var(--grey)}
+  .stat strong{display:block;font-size:28px;color:var(--navy)}
+  .quiet strong.bad{color:var(--org)}
+  .meter-label{font-size:13px;color:var(--grey);display:flex;justify-content:space-between;margin-top:6px}
+  .meter{height:10px;background:var(--tint);border-radius:5px;position:relative;margin-top:4px;overflow:hidden}
+  .meter i{display:block;height:100%;background:var(--navy);border-radius:5px;transition:width .6s}
+  .meter i.low{background:var(--org)}
+  .notice{margin-top:14px;border-radius:8px;padding:12px 14px;background:var(--amberbg);border:1px solid #F2C6A8;font-size:14px;line-height:1.4}
+  .notice.ok{background:var(--greenbg);border-color:#B7DEC8}
+  .notice b{display:block;margin-bottom:4px;font-size:15px}
+  .actions{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  button{font:inherit;font-size:14px;border-radius:6px;padding:8px 14px;cursor:pointer;border:1px solid var(--navy);background:#fff;color:var(--navy)}
+  button.primary{background:var(--navy);color:#fff}
+  button:hover{filter:brightness(.93)}
+  button.link{border:none;background:none;text-decoration:underline;padding:8px 4px;color:var(--grey)}
+  .why{display:none;margin-top:10px;font-size:13px;color:var(--grey);background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px;line-height:1.45}
+  .why.open{display:block}
+  .confirm{display:none;margin-top:10px;font-size:14px;background:#fff;border:1px solid var(--navy);border-radius:6px;padding:10px}
+  .confirm.open{display:block}
+  .row{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;margin-top:24px}
+  .panel{border:1px solid var(--line);border-radius:10px;padding:16px}
+  ul.log{list-style:none;margin:0;padding:0;font-size:14px}
+  ul.log li{padding:7px 0;border-bottom:1px solid var(--tint)}
+  ul.log li:last-child{border:none}
+  ul.log small{color:var(--grey);display:block}
+  .phone{width:230px;margin:0 auto;border:8px solid var(--navy);border-radius:28px;padding:18px 14px;min-height:250px;background:#fff;text-align:center}
+  .phone small{color:var(--grey)}
+  .phone .big{font-size:17px;font-weight:bold;margin:34px 0 8px}
+  footer{max-width:1000px;margin:24px auto 40px;padding:0 24px;font-size:12px;color:var(--grey)}
+  .received{display:flex;align-items:center;justify-content:space-between;margin:14px 0 4px}
+  .big-stat strong{display:block;font-size:40px;line-height:1}
+  .big-stat strong.bad{color:var(--org)}
+  .big-stat span{font-size:13px;color:var(--grey)}
+  .breakdown{display:flex;gap:14px}
+  .breakdown div{font-size:12px;color:var(--grey);text-align:center;background:var(--tint);border-radius:8px;padding:6px 12px}
+  .breakdown b{display:block;font-size:20px;color:var(--navy)}
+  .avg{font-size:13px;color:var(--grey);margin-bottom:10px}
+  .ping{margin-top:14px;text-align:left}
+  .ping b{display:block;font-size:16px;margin-bottom:4px}
+  .ping .count{font-size:30px;font-weight:bold;color:var(--org);margin:8px 0}
+  .ping .actions{justify-content:center}
+</style>
+</head>
+<body>
+<header><b>Rook Dispatch · Console</b><span>Handler: Kip · 2 responders</span></header>
+<div class="proto">Prototype for the "way back" brief. Numbers and names are illustrative, not production scores. Click <b>Restore their standing</b> on Meteor Mite's card to see what changes.</div>
+<main>
+  <h2>Your coverage</h2>
+  <div class="cards">
+    <section class="card" id="gale">
+      <h3>The Gale <span class="badge">Available</span></h3>
+      <div class="received">
+        <div class="big-stat"><strong>14</strong><span>pings received this week</span></div>
+        <div class="breakdown">
+          <div><b>9</b>taken</div>
+          <div><b>3</b>missed</div>
+          <div><b>2</b>declined</div>
+        </div>
+      </div>
+      <div class="avg">Average 13 per week</div>
+      <div class="meter-label"><span>Standing</span><span><b id="gale-pct">78%</b> · healthy</span></div>
+      <div class="meter"><i style="width:78%"></i></div>
+    </section>
+
+    <section class="card quiet" id="mite">
+      <h3>Meteor Mite <span class="badge">Available</span></h3>
+      <div class="received">
+        <div class="big-stat"><strong class="bad" id="mite-received">1</strong><span>pings received this week</span></div>
+        <div class="breakdown">
+          <div><b id="mite-taken">0</b>taken</div>
+          <div><b id="mite-missed">1</b>missed</div>
+          <div><b id="mite-declined">0</b>declined</div>
+        </div>
+      </div>
+      <div class="avg">Average 12 per week</div>
+      <div class="meter-label"><span>Standing</span><span><b id="mite-pct">6%</b> · <span id="mite-label">very low</span></span></div>
+      <div class="meter"><i class="low" id="mite-bar" style="width:6%"></i></div>
+
+      <div class="notice" id="mite-notice">
+        <b>Gone quiet</b>
+        <span id="mite-notice-text">Meteor Mite has had 1 ping this week, usually 12. The last 5 pings expired unanswered; none were turned down.</span>
+        <div class="actions" id="mite-actions">
+          <button class="primary" id="btn-restore">Restore their standing</button>
+          <button id="btn-why">How does standing work?</button>
+          <button class="link" id="btn-snooze">Remind me tomorrow</button>
+        </div>
+        <div class="why" id="mite-why">
+          Callouts are offered to the best-placed available responder first. A ping that expires counts against a responder's standing, but less than a turn-down does.<br><br>
+          <b style="display:inline">What happens on its own:</b> standing eases back toward neutral over days, so Mite returns to the order without anyone acting. Restoring her standing gets there sooner.<br><br>
+          <b style="display:inline">What restoring does not do:</b> it never puts her ahead of someone better placed for a callout.
+        </div>
+        <div class="confirm" id="mite-confirm">
+          Reset Meteor Mite's recent-acceptance score to neutral? This is logged.
+          <div class="actions">
+            <button class="primary" id="btn-confirm">Yes, restore</button>
+            <button id="btn-cancel">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="row">
+    <section class="panel">
+      <h2>Activity log</h2>
+      <ul class="log" id="log">
+        <li>Ping expired for Meteor Mite<small>Today · illustrative</small></li>
+        <li>System noticed Meteor Mite is below her usual pings<small>Today · illustrative</small></li>
+      </ul>
+    </section>
+    <section class="panel">
+      <h2>Meteor Mite's phone</h2>
+      <div class="phone" id="phone">
+        <small>Rook Dispatch</small>
+        <div id="phone-body">
+          <div class="big" id="phone-big">No callouts</div>
+          <small id="phone-small">Nothing offered to you this week.</small>
+        </div>
+      </div>
+      <div class="actions" style="justify-content:center;margin-top:12px">
+        <button id="btn-sim">Simulate a nearby callout</button>
+      </div>
+      <p style="font-size:12px;color:var(--grey);text-align:center;margin:8px 0 0">Prototype control, not part of the phone app.</p>
+      </section>
+  </div>
+</main>
+<footer>Responders appear by cover name only. Restoring standing never moves a responder ahead of someone better placed, and it does not change the 60-second ping wait.</footer>
+
+<script>
+(function(){
+  var $ = function(id){return document.getElementById(id)};
+  var restored = false;
+
+  var POINTS = {taken: 8, declined: -12, missed: -6}; // illustrative; expired pings cost less than turn-downs
+  var FLOOR = 0, AVG = 12;
+  var mite = {score: 6, received: 1, taken: 0, missed: 1, declined: 0};
+  function standingLabel(s){ return s < 15 ? 'very low' : s < 40 ? 'low' : s <= 60 ? 'neutral' : 'healthy'; }
+  function render(){
+    $('mite-pct').textContent = mite.score + '%';
+    $('mite-label').textContent = standingLabel(mite.score);
+    $('mite-bar').style.width = mite.score + '%';
+    $('mite-bar').classList.toggle('low', mite.score < 25);
+    $('mite-received').textContent = mite.received;
+    $('mite-received').classList.toggle('bad', mite.received < AVG / 2);
+    $('mite-taken').textContent = mite.taken;
+    $('mite-missed').textContent = mite.missed;
+    $('mite-declined').textContent = mite.declined;
+  }
+  function record(outcome){
+    var before = mite.score;
+    mite.received++; mite[outcome]++;
+    mite.score = Math.max(FLOOR, Math.min(100, mite.score + POINTS[outcome]));
+    render();
+    return before + '% to ' + mite.score + '%';
+  }
+
+  function addLog(text){
+    var li = document.createElement('li');
+    var t = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    li.innerHTML = text + '<small>Just now · ' + t + '</small>';
+    $('log').insertBefore(li, $('log').firstChild);
+  }
+
+  $('btn-why').onclick = function(){ $('mite-why').classList.toggle('open'); };
+  $('btn-restore').onclick = function(){ $('mite-confirm').classList.add('open'); };
+  $('btn-cancel').onclick = function(){ $('mite-confirm').classList.remove('open'); };
+
+  $('btn-snooze').onclick = function(){
+    $('mite-notice').style.display = 'none';
+    addLog('Kip snoozed the "gone quiet" notice for Meteor Mite');
+  };
+
+  $('btn-confirm').onclick = function(){
+    restored = true;
+    var was = mite.score; mite.score = 50; render();
+    var n = $('mite-notice');
+    n.classList.add('ok');
+    n.innerHTML = '<b>Standing restored</b>The standing of Meteor Mite is now 50% (neutral). She will be offered callouts where she is the best-placed responder. This was logged under Kip.' +
+      '<div class="actions"><button id="btn-undo">Undo</button></div>';
+    $('btn-undo').onclick = undo;
+    addLog('Kip restored Meteor Mite\'s standing from ' + was + '% to 50%');
+  };
+
+
+  var timer=null, idleTimer=null;
+  function setPhone(html){ $('phone-body').innerHTML = html; }
+  function idlePhone(){ setPhone('<div class="big" id="phone-big">No callouts</div><small id="phone-small">Nothing offered to you this week.</small>'); }
+  function endPing(msg, logMsg, outcome){
+    clearInterval(timer); timer=null;
+    setPhone('<div class="big">'+msg+'</div>');
+    addLog(logMsg + ' (standing ' + record(outcome) + ')');
+    idleTimer = setTimeout(idlePhone, 2500);
+  }
+  $('btn-sim').onclick = function(){
+    if(timer) return;
+    clearTimeout(idleTimer);
+    var left = 60;
+    setPhone('<div class="ping"><b>Callout nearby</b><small>Structural entry · 12 min away</small><div class="count" id="count">60s</div>' +
+      '<div class="actions"><button class="primary" id="ph-take">Take it</button><button id="ph-decline">Turn down</button></div></div>');
+    addLog('Ping sent to Meteor Mite');
+    $('ph-take').onclick = function(){ endPing('Callout taken', 'Meteor Mite took the ping', 'taken'); };
+    $('ph-decline').onclick = function(){ endPing('Turned down', 'Meteor Mite turned down the ping', 'declined'); };
+    timer = setInterval(function(){
+      left--;
+      var c=$('count'); if(c) c.textContent = left+'s';
+      if(left<=0) endPing('Ping expired', 'Ping to Meteor Mite expired unanswered', 'missed');
+    },1000);
+  };
+
+  function undo(){
+    location.reload();
+  }
+})();
+</script>
+</body>
+</html>

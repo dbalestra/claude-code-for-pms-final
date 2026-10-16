@@ -1,0 +1,1 @@
+{"version":"0.0.1","configurations":[{"name":"proto","runtimeExecutable":"python3","runtimeArgs":["-m","http.server","8765","--directory","/Users/dbalestra/claude-code-for-pms-final/05-super-speed"],"port":8765}]}
