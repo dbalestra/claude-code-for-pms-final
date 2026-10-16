@@ -146,3 +146,10 @@ Session 5 wrap-up (16 Oct 2026):
 - Preferences: never tell a responder their standing or that they were "out of rotation"; the phone only shows that pings arrive. Product text is plain and present tense, with no history. Docs should make sense to someone reading months later.
 - Prototype amounts are placeholders: taken +8, turned down -12 (current code), missed -6 (my guess), floor 0, all figures made up. The missed-ping value, the floor and the "gone quiet" threshold still need Ravi's data and Wen Li or Marcus.
 - Still open: Helen's answer on replacing the quick fix and on Availability Confidence; Sofia on the notice and phone design; all brief numbers come from my replay, not Ravi's data.
+
+Session 6 wrap-up (16 Oct 2026):
+- Built a reusable skill, `review-checklist` (`.claude/skills/review-checklist/SKILL.md`): six checks (owner, success, scope matches, problem before fix, fix is customer experience, teams involved) plus nine success-metric questions. It reports a verdict, a table and the lines to fix.
+- Ran it on `05-super-speed/brief.md`'s namesake in another person's repo (`drredhook/...`, not mine; I first reviewed my local copy by mistake). Always check which repo a link points to. That brief came back Ready with fixes: no owner for the whole work, no numeric targets or dates, a re-entry slot against a "no guaranteed pings" non-goal, scoring values ahead of customer experience, and phone, console and storage teams unnamed or not agreed.
+- My own `05-super-speed/brief.md` was reviewed once, before the teams check was added: owner, success, scope and customer-experience wording were all partial; problem-before-fix passed. It has not been rerun on the six-check version.
+- Scheduled `monday-review-checklist`: runs every Monday about 9:06 am on my local brief and reports what changed since last time. It only fires while the app is open. First run 19 Oct.
+- An unexplained "scheduled run" output (dated 13 Oct, four briefs, one flag each) was pasted in; I don't know its source and did not act on it.
